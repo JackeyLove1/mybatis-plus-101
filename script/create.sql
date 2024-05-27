@@ -38,3 +38,16 @@ create table `t_product`
 
 insert into t_product(NAME, PRICE)
 VALUES ('laptop', 100);
+
+drop table if exists t_order;
+create table `t_order`(
+    id bigint(20) not null auto_increment,
+    user_id bigint(20) not null,
+    product_id bigint(20) not null,
+    version int(11) not null default 0,
+    constraint primary key (id),
+    constraint unique (user_id, product_id),
+    index idx_user_id (user_id),
+    index idx_product_id (product_id),
+    index idx_user_id_product_id (user_id, product_id)
+);
