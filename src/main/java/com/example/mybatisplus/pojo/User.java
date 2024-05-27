@@ -13,6 +13,9 @@ public class User {
     @TableId(value = "id", type = IdType.AUTO)
     private Long id;
 
+    @TableField(value = "user_name")
+    private String userName;
+
     @TableField(value = "name")
     private String name;
 

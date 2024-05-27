@@ -24,7 +24,7 @@ public class MyBatisPlusServiceTest {
     @Test
     public void testSaveBatch(){
         List<User> list = new ArrayList<>();
-        final int nums = 5;
+        final int nums = 100;
         for (int i = 0; i < nums; i++){
             list.add(Mock.makeUser());
         }

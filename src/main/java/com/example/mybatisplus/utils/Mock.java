@@ -9,9 +9,11 @@ public class Mock {
         User user = new User();
 
         user.setName(faker.name().fullName());
+        user.setUserName(faker.name().username());
         user.setAge(faker.number().numberBetween(1, 100));
         user.setEmail(faker.internet().emailAddress());
         user.setPassword(faker.internet().password());
+
         return user;
     }
 }

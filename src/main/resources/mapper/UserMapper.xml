@@ -8,4 +8,11 @@
         from t_user
         where id = #{id}
     </select>
+
+    <select id="selectPageByAge" resultType="com.example.mybatisplus.pojo.User">
+        select id, password, name, age, email
+        from t_user
+        where age > #{age}
+        and is_deleted = 0
+    </select>
 </mapper>
