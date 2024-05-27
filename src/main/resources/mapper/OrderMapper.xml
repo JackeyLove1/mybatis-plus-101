@@ -11,8 +11,41 @@
             <result property="version" column="version" jdbcType="INTEGER"/>
     </resultMap>
 
-    <sql id="Base_Column_List">
-        id,user_id,product_id,
-        version
+    <sql id="commonSelect">
+        select *
+        from t_order
     </sql>
+    <insert id="insertSelective">
+        insert into t_order
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="userId != null">user_id,</if>
+            <if test="productId != null">product_id,</if>
+            <if test="version != null">version,</if>
+        </trim>
+        values
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id,jdbcType=BIGINT},</if>
+            <if test="userId != null">#{userId,jdbcType=BIGINT},</if>
+            <if test="productId != null">#{productId,jdbcType=BIGINT},</if>
+            <if test="version != null">#{version,jdbcType=INTEGER},</if>
+        </trim>
+    </insert>
+    <delete id="deleteById">
+        delete
+        from t_order
+        where id = #{id,jdbcType=NUMERIC}
+    </delete>
+    <update id="updateIdById">
+        update t_order
+        set id = #{id,jdbcType=NUMERIC}
+        where id = #{oldId,jdbcType=NUMERIC}
+    </update>
+    <select id="selectById" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from t_order
+        where
+        id = #{id,jdbcType=NUMERIC}
+    </select>
 </mapper>
