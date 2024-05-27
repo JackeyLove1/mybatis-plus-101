@@ -7,6 +7,10 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+
 @SpringBootTest
 class MybatisPlusApplicationTests {
 
@@ -30,6 +34,48 @@ class MybatisPlusApplicationTests {
         User user = Mock.makeUser();
         userMapper.insert(user);
         System.out.println(user.getId());
+    }
+
+    @Test
+    void testDeleteUserByMap(){
+        Map<String, Object> map = new HashMap<>();
+        map.put("name", "zhangsan");
+        map.put("age", 23);
+        int result = userMapper.deleteByMap(map);
+        System.out.println("result: "+ result);
+    }
+
+    @Test
+    void testDeleteUserByIds(){
+        var result = userMapper.deleteBatchIds(Arrays.asList(11L, 12L, 13L));
+        System.out.println("result: "+ result);
+    }
+
+    @Test
+    void testUpdateUser(){
+        User user = Mock.makeUser();
+        user.setId(4L);
+        int result = userMapper.updateById(user);
+        System.out.println("result: "+ result);
+    }
+
+    @Test
+    void testBatchSelectIds(){
+        var list  = Arrays.asList(1L, 2L, 3L);
+        userMapper.selectBatchIds(list)
+                .stream()
+                .forEach(user -> System.out.println(user));
+    }
+
+    @Test
+    void testSelectMapById(){
+        Map<String, Object> map = userMapper.selectMapById(1L);
+        System.out.println(map);
+    }
+
+    @Test
+    void testDeleteById(){
+        userMapper.deleteById(1L);
     }
 
 }
